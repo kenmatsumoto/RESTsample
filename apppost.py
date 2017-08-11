@@ -1,3 +1,4 @@
+''' REST sample '''
 #!flask/bin/python
 from flask import Flask, jsonify, abort, make_response, url_for
 
@@ -40,7 +41,10 @@ def make_public_task(task):
 
 @app.route('/todo/api/v1.0/tasks', methods=['GET'])
 def get_tasks():
-    return jsonify({'tasks': [make_public_task(task) for task in tasks]})
+    '''    return jsonify({'tasks': [make_public_task(task) for task in tasks]}) '''
+    response = jsonify([make_public_task(task) for task in tasks])
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
 
 if __name__ == '__main__':
     app.run(debug=True)
